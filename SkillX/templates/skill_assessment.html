@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Assessment | SkillX</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #858796;
+            --success-color: #1cc88a;
+            --info-color: #36b9cc;
+            --warning-color: #f6c23e;
+            --danger-color: #e74a3b;
+            --light-color: #f8f9fc;
+            --dark-color: #5a5c69;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fc;
+        }
+
+        /* Custom Card Styling */
+        .card {
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: none;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            border-top-left-radius: 0.5rem !important;
+            border-top-right-radius: 0.5rem !important;
+            background-color: white;
+            border-bottom: 1px solid #eaecf4;
+            font-weight: bold;
+            padding: 1rem 1.25rem;
+        }
+
+        /* Skill card styling */
+        .skill-card {
+            transition: transform 0.2s;
+        }
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+        .skill-level-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .skill-level-btn.active {
+            background-color: #4e73df;
+            color: white;
+        }
+
+        /* Button Styling */
+        .btn {
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5fc9;
+            border-color: #3a5fc9;
+        }
+
+        /* Navbar Styling */
+        .navbar-dark.bg-primary {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            padding: 0.6rem 1rem !important;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #4e73df;
+            color: white;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-chart-line me-2"></i>SkillX
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="skill_assessment.html">Skill Assessment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="career_paths.html">Career Paths</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="job_trends.html">Job Trends</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Tools
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="mock_interview.html">Mock Interview</a></li>
+                            <li><a class="dropdown-item" href="resume_review.html">Resume Review</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages - This would normally be populated by Flask -->
+    <div class="container mt-3" id="flash-messages">
+        <!-- Example flash message:
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Skills updated successfully!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        -->
+    </div>
+
+    <!-- Main Content -->
+    <main class="py-4">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <!-- Header -->
+                    <div class="text-center mb-5">
+                        <h1 class="fw-bold">Skill Assessment</h1>
+                        <p class="lead text-muted">Rate your proficiency in various skills to get personalized career recommendations</p>
+                    </div>
+                    
+                    <!-- Skill Assessment Form -->
+                    <form method="POST" action="/skill-assessment">
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-body p-4">
+                                <div class="mb-4">
+                                    <h4 class="mb-3">How to Rate Your Skills</h4>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="me-3 text-center">
+                                            <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                                <span class="fw-bold">1</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-1">Beginner</h6>
+                                            <p class="text-muted small mb-0">Basic understanding but limited practical experience</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="me-3 text-center">
+                                            <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                                <span class="fw-bold">3</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-1">Intermediate</h6>
+                                            <p class="text-muted small mb-0">Good working knowledge and some practical experience</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-3 text-center">
+                                            <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                                <span class="fw-bold">5</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-1">Expert</h6>
+                                            <p class="text-muted small mb-0">Deep understanding and extensive practical experience</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Programming Skills -->
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-white py-3">
+                                <h5 class="mb-0 fw-bold">Programming & Development</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card skill-card h-100 border-0 shadow-sm">
+                                            <div class="card-body p-3">
+                                                <h6 class="mb-3">Python</h6>
+                                                <div class="skill-level-container d-flex justify-content-between" data-skill-name="skill_Python">
+                                                    <div class="skill-level-btn border" data-level="1">1</div>
+                                                    <div class="skill-level-btn border" data-level="2">2</div>
+                                                    <div class="skill-level-btn active border" data-level="3">3</div>
+                                                    <div class="skill-level-btn border" data-level="4">4</div>
+                                                    <div class="skill-level-btn border" data-level="5">5</div>
+                                                    <input type="hidden" name="skill_Python" value="3" id="skill_Python">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card skill-card h-100 border-0 shadow-sm">
+                                            <div class="card-body p-3">
+                                                <h6 class="mb-3">JavaScript</h6>
+                                                <div class="skill-level-container d-flex justify-content-between" data-skill-name="skill_JavaScript">
+                                                    <div class="skill-level-btn border" data-level="1">1</div>
+                                                    <div class="skill-level-btn active border" data-level="2">2</div>
+                                                    <div class="skill-level-btn border" data-level="3">3</div>
+                                                    <div class="skill-level-btn border" data-level="4">4</div>
+                                                    <div class="skill-level-btn border" data-level="5">5</div>
+                                                    <input type="hidden" name="skill_JavaScript" value="2" id="skill_JavaScript">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card skill-card h-100 border-0 shadow-sm">
+                                            <div class="card-body p-3">
+                                                <h6 class="mb-3">HTML/CSS</h6>
+                                                <div class="skill-level-container d-flex justify-content-between" data-skill-name="skill_HTML_CSS">
+                                                    <div class="skill-level-btn border" data-level="1">1</div>
+                                                    <div class="skill-level-btn border" data-level="2">2</div>
+                                                    <div class="skill-level-btn border" data-level="3">3</div>
+                                                    <div class="skill-level-btn active border" data-level="4">4</div>
+                                                    <div class="skill-level-btn border" data-level="5">5</div>
+                                                    <input type="hidden" name="skill_HTML_CSS" value="4" id="skill_HTML_CSS">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card skill-card h-100 border-0 shadow-sm">
+                                            <div class="card-body p-3">
+                                                <h6 class="mb-3">React</h6>
+                                                <div class="skill-level-container d-flex justify-content-between" data-skill-name="skill_React">
+                                                    <div class="skill-level-btn active border" data-level="1">1</div>
+                                                    <div class="skill-level-btn border" data-level="2">2</div>
+                                                    <div class="skill-level-btn border" data-level="3">3</div>
+                                                    <div class="skill-level-btn border" data-level="4">4</div>
+                                                    <div class="skill-level-btn border" data-level="5">5</div>
+                                                    <input type="hidden" name="skill_React" value="1" id="skill_React">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card skill-card h-100 border-0 shadow-sm">
+                                            <div class="card-body p-3">
+                                                <h6 class="mb-3">SQL</h6>
+                                                <div class="skill-level-container d-flex justify-content-between" data-skill-name="skill_SQL">
+                                                    <div class="skill-level-btn border" data-level="1">1</div>
+                                                    <div class="skill-level-btn active border" data-level="2">2</div>
+                                                    <div class="skill-level-btn border" data-level="3">3</div>
+                                                    <div class="skill-level-btn border" data-level="4">4</div>
+                                                    <div class="skill-level-btn border" data-level="5">5</div>
+                                                    <input type="hidden" name="skill_SQL" value="2" id="skill_SQL">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Data Science Skills -->
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-white py-3">
+                                <h5 class="mb-0 fw-bold">Data Science & Analytics</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card skill-card h-100 border-0 shadow-sm">
+                                            <div class="card-body p-3">
+                                                <h6 class="mb-3">Machine Learning</h6>
+                                                <div class="skill-level-container d-flex justify-content-between" data-skill-name="skill_Machine_Learning">
+                                                    <div class="skill-level-btn active border" data-level="1">1</div>
+                                                    <div class="skill-level-btn border" data-level="2">2</div>
+                                                    <div class="skill-level-btn border" data-level="3">3</div>
+                                                    <div class="skill-level-btn border" data-level="4">4</div>
+                                                    <div class="skill-level-btn border" data-level="5">5</div>
+                                                    <input type="hidden" name="skill_Machine_Learning" value="1" id="skill_Machine_Learning">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card skill-card h-100 border-0 shadow-sm">
+                                            <div class="card-body p-3">
+                                                <h6 class="mb-3">Data Analysis</h6>
+                                                <div class="skill-level-container d-flex justify-content-between" data-skill-name="skill_Data_Analysis">
+                                                    <div class="skill-level-btn border" data-level="1">1</div>
+                                                    <div class="skill-level-btn active border" data-level="2">2</div>
+                                                    <div class="skill-level-btn border" data-level="3">3</div>
+                                                    <div class="skill-level-btn border" data-level="4">4</div>
+                                                    <div class="skill-level-btn border" data-level="5">5</div>
+                                                    <input type="hidden" name="skill_Data_Analysis" value="2" id="skill_Data_Analysis">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Soft Skills -->
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-white py-3">
+                                <h5 class="mb-0 fw-bold">Soft Skills & Professional</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card skill-card h-100 border-0 shadow-sm">
+                                            <div class="card-body p-3">
+                                                <h6 class="mb-3">Communication</h6>
+                                                <div class="skill-level-container d-flex justify-content-between" data-skill-name="skill_Communication">
+                                                    <div class="skill-level-btn border" data-level="1">1</div>
+                                                    <div class="skill-level-btn border" data-level="2">2</div>
+                                                    <div class="skill-level-btn active border" data-level="3">3</div>
+                                                    <div class="skill-level-btn border" data-level="4">4</div>
+                                                    <div class="skill-level-btn border" data-level="5">5</div>
+                                                    <input type="hidden" name="skill_Communication" value="3" id="skill_Communication">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card skill-card h-100 border-0 shadow-sm">
+                                            <div class="card-body p-3">
+                                                <h6 class="mb-3">Problem Solving</h6>
+                                                <div class="skill-level-container d-flex justify-content-between" data-skill-name="skill_Problem_Solving">
+                                                    <div class="skill-level-btn border" data-level="1">1</div>
+                                                    <div class="skill-level-btn border" data-level="2">2</div>
+                                                    <div class="skill-level-btn border" data-level="3">3</div>
+                                                    <div class="skill-level-btn active border" data-level="4">4</div>
+                                                    <div class="skill-level-btn border" data-level="5">5</div>
+                                                    <input type="hidden" name="skill_Problem_Solving" value="4" id="skill_Problem_Solving">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Form Submission -->
+                        <div class="text-center mb-5">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">Save and Continue</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>SkillX</h5>
+                    <p class="text-muted">Empowering students with AI-driven career guidance.</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Features</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="skill_assessment.html" class="text-muted">Skill Assessment</a></li>
+                        <li><a href="career_paths.html" class="text-muted">Career Paths</a></li>
+                        <li><a href="job_trends.html" class="text-muted">Job Trends</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Tools</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="mock_interview.html" class="text-muted">Mock Interview</a></li>
+                        <li><a href="resume_review.html" class="text-muted">Resume Review</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Connect With Us</h5>
+                    <div class="d-flex">
+                        <a href="#" class="text-muted me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-muted me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-muted me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-muted"><i class="fab fa-github fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top border-secondary mt-4 pt-3 text-center text-muted">
+                <p>&copy; 2023 SkillX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // DOM Ready Event
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Bootstrap tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            
+            // Handle skill level selection
+            const skillContainers = document.querySelectorAll('.skill-level-container');
+            
+            // Add click event handlers to each container
+            skillContainers.forEach(container => {
+                const skillName = container.dataset.skillName;
+                const hiddenInput = document.getElementById(skillName);
+                const buttons = container.querySelectorAll('.skill-level-btn');
+                
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        // Clear active state from all buttons in this container
+                        buttons.forEach(b => b.classList.remove('active'));
+                        
+                        // Set active state on clicked button
+                        this.classList.add('active');
+                        
+                        // Update hidden input value
+                        hiddenInput.value = this.dataset.level;
+                    });
+                });
+            });
+            
+            console.log('SkillX JavaScript initialized successfully!');
+        });
+    </script>
+</body>
+</html>

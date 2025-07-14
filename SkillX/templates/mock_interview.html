@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Interview | SkillX</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #858796;
+            --success-color: #1cc88a;
+            --info-color: #36b9cc;
+            --warning-color: #f6c23e;
+            --danger-color: #e74a3b;
+            --light-color: #f8f9fc;
+            --dark-color: #5a5c69;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fc;
+        }
+
+        /* Custom Card Styling */
+        .card {
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: none;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            border-top-left-radius: 0.5rem !important;
+            border-top-right-radius: 0.5rem !important;
+            background-color: white;
+            border-bottom: 1px solid #eaecf4;
+            font-weight: bold;
+            padding: 1rem 1.25rem;
+        }
+
+        /* Interview category card styling */
+        .category-card {
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .interview-history-item {
+            transition: all 0.2s;
+        }
+        .interview-history-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Button Styling */
+        .btn {
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5fc9;
+            border-color: #3a5fc9;
+        }
+
+        /* Navbar Styling */
+        .navbar-dark.bg-primary {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            padding: 0.6rem 1rem !important;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #4e73df;
+            color: white;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Interview session styles */
+        .question-counter {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            background-color: var(--primary-color);
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-chart-line me-2"></i>SkillX
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="skill_assessment.html">Skill Assessment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="career_paths.html">Career Paths</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="job_trends.html">Job Trends</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Tools
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="mock_interview.html">Mock Interview</a></li>
+                            <li><a class="dropdown-item" href="resume_review.html">Resume Review</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages - This would normally be populated by Flask -->
+    <div class="container mt-3" id="flash-messages">
+        <!-- Example flash message would go here -->
+    </div>
+
+    <!-- Main Content -->
+    <main class="py-4">
+        <div class="container py-4">
+            <!-- Header Section -->
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="fw-bold mb-3">Mock Interview Practice</h1>
+                    <p class="lead text-muted">Prepare for your next interview with AI-powered practice sessions</p>
+                </div>
+            </div>
+            
+            <!-- Main Content Sections -->
+            <div class="row">
+                <!-- Interview Categories -->
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-white py-3">
+                            <h4 class="mb-0 fw-bold">Interview Categories</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="card category-card h-100 border-0 shadow-sm" onclick="startInterview('technical')">
+                                        <div class="card-body p-4 text-center">
+                                            <div class="mb-3">
+                                                <i class="fas fa-code fa-3x text-primary"></i>
+                                            </div>
+                                            <h5 class="card-title">Technical Interviews</h5>
+                                            <p class="text-muted mb-0">Coding, problem-solving, and technical questions</p>
+                                            <div class="mt-3">
+                                                <span class="badge bg-info">30 questions</span>
+                                                <span class="badge bg-secondary ms-2">~45 min</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="card category-card h-100 border-0 shadow-sm" onclick="startInterview('hr')">
+                                        <div class="card-body p-4 text-center">
+                                            <div class="mb-3">
+                                                <i class="fas fa-user-tie fa-3x text-primary"></i>
+                                            </div>
+                                            <h5 class="card-title">HR Interviews</h5>
+                                            <p class="text-muted mb-0">Behavioral and personality questions</p>
+                                            <div class="mt-3">
+                                                <span class="badge bg-info">25 questions</span>
+                                                <span class="badge bg-secondary ms-2">~30 min</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="card category-card h-100 border-0 shadow-sm" onclick="startInterview('design')">
+                                        <div class="card-body p-4 text-center">
+                                            <div class="mb-3">
+                                                <i class="fas fa-palette fa-3x text-primary"></i>
+                                            </div>
+                                            <h5 class="card-title">Design Interviews</h5>
+                                            <p class="text-muted mb-0">UI/UX and design thinking questions</p>
+                                            <div class="mt-3">
+                                                <span class="badge bg-info">20 questions</span>
+                                                <span class="badge bg-secondary ms-2">~40 min</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="card category-card h-100 border-0 shadow-sm" onclick="startInterview('data-science')">
+                                        <div class="card-body p-4 text-center">
+                                            <div class="mb-3">
+                                                <i class="fas fa-chart-bar fa-3x text-primary"></i>
+                                            </div>
+                                            <h5 class="card-title">Data Science Interviews</h5>
+                                            <p class="text-muted mb-0">Statistics, ML, and data manipulation questions</p>
+                                            <div class="mt-3">
+                                                <span class="badge bg-info">25 questions</span>
+                                                <span class="badge bg-secondary ms-2">~45 min</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Interview Tips -->
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white py-3">
+                            <h4 class="mb-0 fw-bold">Interview Tips</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="accordion" id="interviewTipsAccordion">
+                                <div class="accordion-item border-0 mb-3">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#tipOne">
+                                            Prepare for Common Questions
+                                        </button>
+                                    </h2>
+                                    <div id="tipOne" class="accordion-collapse collapse show" data-bs-parent="#interviewTipsAccordion">
+                                        <div class="accordion-body">
+                                            Research common interview questions for your target role and practice your responses. Focus on clear, concise answers with concrete examples from your experience.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item border-0 mb-3">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tipTwo">
+                                            Use the STAR Method
+                                        </button>
+                                    </h2>
+                                    <div id="tipTwo" class="accordion-collapse collapse" data-bs-parent="#interviewTipsAccordion">
+                                        <div class="accordion-body">
+                                            For behavioral questions, structure your answers using the STAR method: Situation, Task, Action, and Result. This helps you provide complete, focused responses.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item border-0 mb-3">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tipThree">
+                                            Research the Company
+                                        </button>
+                                    </h2>
+                                    <div id="tipThree" class="accordion-collapse collapse" data-bs-parent="#interviewTipsAccordion">
+                                        <div class="accordion-body">
+                                            Understand the company's mission, values, products, and culture. This demonstrates your interest and helps you align your answers with their objectives.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item border-0">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tipFour">
+                                            Prepare Thoughtful Questions
+                                        </button>
+                                    </h2>
+                                    <div id="tipFour" class="accordion-collapse collapse" data-bs-parent="#interviewTipsAccordion">
+                                        <div class="accordion-body">
+                                            Prepare 3-5 insightful questions to ask the interviewer about the role, team, or company. This shows your engagement and helps you evaluate if the position is right for you.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Interview History & Stats -->
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-white py-3">
+                            <h4 class="mb-0 fw-bold">Your Interview History</h4>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item interview-history-item p-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-3">
+                                            <span class="badge bg-primary p-2">
+                                                <i class="fas fa-code"></i>
+                                            </span>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-0">Technical Interview</h6>
+                                            <p class="text-muted small mb-0">May 20, 2023</p>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <span class="badge bg-success">78%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-group-item interview-history-item p-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-3">
+                                            <span class="badge bg-info p-2">
+                                                <i class="fas fa-chart-bar"></i>
+                                            </span>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-0">Data Science Interview</h6>
+                                            <p class="text-muted small mb-0">May 18, 2023</p>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <span class="badge bg-warning">65%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-group-item interview-history-item p-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-3">
+                                            <span class="badge bg-secondary p-2">
+                                                <i class="fas fa-user-tie"></i>
+                                            </span>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-0">HR Interview</h6>
+                                            <p class="text-muted small mb-0">May 15, 2023</p>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <span class="badge bg-success">82%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Interview Stats -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-white py-3">
+                            <h4 class="mb-0 fw-bold">Your Performance</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <h5 class="mb-3">Overall Score</h5>
+                            <div class="progress mb-4" style="height: 25px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                    <span class="fw-bold">75%</span>
+                                </div>
+                            </div>
+                            
+                            <h5 class="mb-3">Category Breakdown</h5>
+                            <div class="mb-2">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Technical</span>
+                                    <span>78%</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>HR</span>
+                                    <span>82%</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 82%" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="mb-0">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Data Science</span>
+                                    <span>65%</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ready to Practice CTA -->
+                    <div class="card border-0 bg-primary text-white">
+                        <div class="card-body p-4 text-center">
+                            <h5 class="mb-3">Ready to Practice?</h5>
+                            <p class="mb-3">Choose an interview category to start a practice session.</p>
+                            <button class="btn btn-light" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                                <i class="fas fa-arrow-up me-2"></i> Select a Category
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Interview Session Modal -->
+    <div class="modal fade" id="interviewModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="interviewCategoryTitle">Technical Interview</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="d-flex align-items-center">
+                            <span class="question-counter me-3">1</span>
+                            <span class="fw-bold">Question 1 of 10</span>
+                        </div>
+                        <div class="timer">
+                            <i class="fas fa-clock me-2"></i>
+                            <span id="questionTimer">03:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="mb-3" id="interviewQuestion">What is the difference between let, const, and var in JavaScript?</h5>
+                            <p class="text-muted small">Take your time to think about your answer before recording or typing it.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="answerInput" class="form-label">Your Answer</label>
+                        <textarea class="form-control" id="answerInput" rows="6" placeholder="Type your answer here..."></textarea>
+                    </div>
+                    
+                    <div class="text-center mb-3">
+                        <button class="btn btn-outline-primary me-2">
+                            <i class="fas fa-microphone me-2"></i>Record Answer
+                        </button>
+                        <button class="btn btn-primary" onclick="submitAnswer()">
+                            Submit Answer
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">End Interview</button>
+                    <button type="button" class="btn btn-primary" id="nextQuestionBtn" style="display: none;">Next Question</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Answer Feedback Modal -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Answer Feedback</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="text-center mb-4">
+                        <div class="display-4 text-success mb-3">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h4>Good Answer!</h4>
+                        <div class="badge bg-success p-2 mb-3">Score: 85%</div>
+                    </div>
+                    
+                    <div class="card mb-3">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">Strengths</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="mb-0">
+                                <li>Clear explanation of scope differences</li>
+                                <li>Good example of when to use each</li>
+                                <li>Accurate technical information</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-3">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">Areas for Improvement</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="mb-0">
+                                <li>Could mention temporal dead zone for let/const</li>
+                                <li>Consider discussing performance implications</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0">Sample Answer</h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-0">Let and const are block-scoped, while var is function-scoped. Const cannot be reassigned once declared, whereas let and var can be. Var is hoisted to the top of its scope with an initial value of undefined, but let and const are hoisted without initialization, resulting in a "temporal dead zone". Use const by default, let when you need to reassign, and avoid var in modern code.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="closeAndNext()">Next Question</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>SkillX</h5>
+                    <p class="text-muted">Empowering students with AI-driven career guidance.</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Features</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="skill_assessment.html" class="text-muted">Skill Assessment</a></li>
+                        <li><a href="career_paths.html" class="text-muted">Career Paths</a></li>
+                        <li><a href="job_trends.html" class="text-muted">Job Trends</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Tools</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="mock_interview.html" class="text-muted">Mock Interview</a></li>
+                        <li><a href="resume_review.html" class="text-muted">Resume Review</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Connect With Us</h5>
+                    <div class="d-flex">
+                        <a href="#" class="text-muted me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-muted me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-muted me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-muted"><i class="fab fa-github fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top border-secondary mt-4 pt-3 text-center text-muted">
+                <p>&copy; 2023 SkillX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Interview timer
+        let timerInterval;
+        let secondsRemaining = 180;
+        
+        function startTimer() {
+            timerInterval = setInterval(function() {
+                secondsRemaining--;
+                
+                if (secondsRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    submitAnswer();
+                }
+                
+                const minutes = Math.floor(secondsRemaining / 60);
+                const seconds = secondsRemaining % 60;
+                
+                document.getElementById('questionTimer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+            }, 1000);
+        }
+        
+        // Start an interview session
+        function startInterview(category) {
+            // Set the interview title based on category
+            let title = "Technical Interview";
+            
+            if (category === 'hr') {
+                title = "HR Interview";
+            } else if (category === 'design') {
+                title = "Design Interview";
+            } else if (category === 'data-science') {
+                title = "Data Science Interview";
+            }
+            
+            document.getElementById('interviewCategoryTitle').textContent = title;
+            
+            // Show the interview modal
+            const interviewModal = new bootstrap.Modal(document.getElementById('interviewModal'));
+            interviewModal.show();
+            
+            // Start the timer
+            secondsRemaining = 180;
+            startTimer();
+        }
+        
+        // Submit an answer
+        function submitAnswer() {
+            // Clear the timer
+            clearInterval(timerInterval);
+            
+            // Hide the submit button and show the next button
+            document.getElementById('nextQuestionBtn').style.display = 'block';
+            
+            // Show the feedback modal
+            const feedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
+            feedbackModal.show();
+        }
+        
+        // Close the feedback modal and go to the next question
+        function closeAndNext() {
+            // Close the feedback modal
+            const feedbackModal = bootstrap.Modal.getInstance(document.getElementById('feedbackModal'));
+            feedbackModal.hide();
+            
+            // Reset the timer for the next question
+            secondsRemaining = 180;
+            startTimer();
+            
+            // Update the question counter
+            const questionCounter = document.querySelector('.question-counter');
+            const currentQuestion = parseInt(questionCounter.textContent);
+            questionCounter.textContent = currentQuestion + 1;
+            
+            // Update the question text
+            document.querySelector('.fw-bold').textContent = `Question ${currentQuestion + 1} of 10`;
+            
+            // Clear the answer input
+            document.getElementById('answerInput').value = '';
+            
+            // Hide the next button
+            document.getElementById('nextQuestionBtn').style.display = 'none';
+            
+            // Update the question (in a real app, this would load the next question)
+            const questions = [
+                "What is the difference between let, const, and var in JavaScript?",
+                "Explain the concept of closures in JavaScript.",
+                "What is the time complexity of quicksort in worst case?",
+                "Describe the CSS Box Model and its components.",
+                "How does prototypal inheritance work in JavaScript?"
+            ];
+            
+            const nextQuestionIndex = currentQuestion % questions.length;
+            document.getElementById('interviewQuestion').textContent = questions[nextQuestionIndex];
+        }
+        
+        // DOM Ready Event
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Bootstrap tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+        });
+    </script>
+</body>
+</html>

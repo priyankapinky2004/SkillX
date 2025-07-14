@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Paths | SkillX</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #858796;
+            --success-color: #1cc88a;
+            --info-color: #36b9cc;
+            --warning-color: #f6c23e;
+            --danger-color: #e74a3b;
+            --light-color: #f8f9fc;
+            --dark-color: #5a5c69;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fc;
+        }
+
+        /* Custom Card Styling */
+        .card {
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: none;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            border-top-left-radius: 0.5rem !important;
+            border-top-right-radius: 0.5rem !important;
+            background-color: white;
+            border-bottom: 1px solid #eaecf4;
+            font-weight: bold;
+            padding: 1rem 1.25rem;
+        }
+
+        /* Career card styling */
+        .career-card {
+            transition: transform 0.3s;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .career-card:hover {
+            transform: translateY(-10px);
+        }
+        .match-indicator {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .career-header {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .resource-link {
+            transition: all 0.2s;
+        }
+        .resource-link:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Button Styling */
+        .btn {
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5fc9;
+            border-color: #3a5fc9;
+        }
+
+        /* Navbar Styling */
+        .navbar-dark.bg-primary {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            padding: 0.6rem 1rem !important;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #4e73df;
+            color: white;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-chart-line me-2"></i>SkillX
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="skill_assessment.html">Skill Assessment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="career_paths.html">Career Paths</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="job_trends.html">Job Trends</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Tools
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="mock_interview.html">Mock Interview</a></li>
+                            <li><a class="dropdown-item" href="resume_review.html">Resume Review</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages - This would normally be populated by Flask -->
+    <div class="container mt-3" id="flash-messages">
+        <!-- Example flash message:
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Skills updated successfully!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        -->
+    </div>
+
+    <!-- Main Content -->
+    <main class="py-4">
+        <div class="container py-4">
+            <!-- Header Section -->
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="fw-bold mb-3">Your Career Path Recommendations</h1>
+                    <p class="lead text-muted">Based on your skills and interests, we've identified these career paths that match your profile</p>
+                </div>
+            </div>
+            
+            <!-- Career Path Cards -->
+            <div class="row">
+                <!-- Full Stack Developer -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 career-card border-0 shadow-sm">
+                        <div class="career-header bg-primary text-white">
+                            <h3>Full Stack Developer</h3>
+                        </div>
+                        <div class="card-body position-relative">
+                            <div class="position-absolute top-0 end-0 translate-middle">
+                                <div class="match-indicator bg-success text-white">85%</div>
+                            </div>
+                            
+                            <p class="text-muted mb-4">Develop both frontend and backend components of web applications.</p>
+                            
+                            <h5 class="mb-3">Required Skills</h5>
+                            <div class="mb-4">
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span>JavaScript</span>
+                                        <span class="badge bg-light text-dark">Level 4/5</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" 
+                                             style="width: 80%" aria-valuenow="80" 
+                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span>HTML/CSS</span>
+                                        <span class="badge bg-light text-dark">Level 3/5</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" 
+                                             style="width: 60%" aria-valuenow="60" 
+                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span>Python</span>
+                                        <span class="badge bg-light text-dark">Level 3/5</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" 
+                                             style="width: 60%" aria-valuenow="60" 
+                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h5 class="mb-3">Career Details</h5>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Average Salary</span>
+                                    <span class="fw-bold">₹6,00,000 - ₹15,00,000</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Growth Potential</span>
+                                    <span class="fw-bold">High growth in startups and established companies</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 pt-0">
+                            <h5 class="mb-3">Learning Resources</h5>
+                            <div class="list-group list-group-flush">
+                                <a href="https://www.udemy.com/course/the-web-developer-bootcamp/" target="_blank" class="list-group-item list-group-item-action resource-link p-3 border rounded mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <i class="fas fa-book text-primary"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="mb-0">The Web Developer Bootcamp</h6>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="https://fullstackopen.com/en/" target="_blank" class="list-group-item list-group-item-action resource-link p-3 border rounded mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <i class="fas fa-book text-primary"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="mb-0">Full Stack Open</h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="d-grid mt-4">
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#careerModal1">
+                                    Explore This Path
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Scientist -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 career-card border-0 shadow-sm">
+                        <div class="career-header bg-primary text-white">
+                            <h3>Data Scientist</h3>
+                        </div>
+                        <div class="card-body position-relative">
+                            <div class="position-absolute top-0 end-0 translate-middle">
+                                <div class="match-indicator bg-warning text-dark">65%</div>
+                            </div>
+                            
+                            <p class="text-muted mb-4">Analyze and interpret complex data to help organizations make better decisions.</p>
+                            
+                            <h5 class="mb-3">Required Skills</h5>
+                            <div class="mb-4">
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span>Python</span>
+                                        <span class="badge bg-light text-dark">Level 4/5</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" 
+                                             style="width: 80%" aria-valuenow="80" 
+                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span>Statistics</span>
+                                        <span class="badge bg-light text-dark">Level 4/5</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" 
+                                             style="width: 80%" aria-valuenow="80" 
+                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span>Machine Learning</span>
+                                        <span class="badge bg-light text-dark">Level 3/5</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" 
+                                             style="width: 60%" aria-valuenow="60" 
+                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h5 class="mb-3">Career Details</h5>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Average Salary</span>
+                                    <span class="fw-bold">₹8,00,000 - ₹20,00,000</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Growth Potential</span>
+                                    <span class="fw-bold">High demand across industries</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 pt-0">
+                            <h5 class="mb-3">Learning Resources</h5>
+                            <div class="list-group list-group-flush">
+                                <a href="https://www.udemy.com/course/datascience/" target="_blank" class="list-group-item list-group-item-action resource-link p-3 border rounded mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <i class="fas fa-book text-primary"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="mb-0">Data Science A-Z</h6>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="https://www.coursera.org/professional-certificates/ibm-data-science" target="_blank" class="list-group-item list-group-item-action resource-link p-3 border rounded mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <i class="fas fa-book text-primary"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="mb-0">IBM Data Science Professional Certificate</h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="d-grid mt-4">
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#careerModal2">
+                                    Explore This Path
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- UI/UX Designer -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 career-card border-0 shadow-sm">
+                        <div class="career-header bg-primary text-white">
+                            <h3>UI/UX Designer</h3>
+                        </div>
+                        <div class="card-body position-relative">
+                            <div class="position-absolute top-0 end-0 translate-middle">
+                                <div class="match-indicator bg-secondary text-white">55%</div>
+                            </div>
+                            
+                            <p class="text-muted mb-4">Design user interfaces and experiences for digital products.</p>
+                            
+                            <h5 class="mb-3">Required Skills</h5>
+                            <div class="mb-4">
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span>Figma</span>
+                                        <span class="badge bg-light text-dark">Level 4/5</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" 
+                                             style="width: 80%" aria-valuenow="80" 
+                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span>User Research</span>
+                                        <span class="badge bg-light text-dark">Level 3/5</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" 
+                                             style="width: 60%" aria-valuenow="60" 
+                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span>HTML/CSS</span>
+                                        <span class="badge bg-light text-dark">Level 2/5</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-info" role="progressbar" 
+                                             style="width: 40%" aria-valuenow="40" 
+                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h5 class="mb-3">Career Details</h5>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Average Salary</span>
+                                    <span class="fw-bold">₹5,00,000 - ₹15,00,000</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Growth Potential</span>
+                                    <span class="fw-bold">Growing demand in product companies</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 pt-0">
+                            <h5 class="mb-3">Learning Resources</h5>
+                            <div class="list-group list-group-flush">
+                                <a href="https://www.coursera.org/professional-certificates/google-ux-design" target="_blank" class="list-group-item list-group-item-action resource-link p-3 border rounded mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <i class="fas fa-book text-primary"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="mb-0">Google UX Design Professional Certificate</h6>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="https://www.coursera.org/specializations/ui-ux-design" target="_blank" class="list-group-item list-group-item-action resource-link p-3 border rounded mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <i class="fas fa-book text-primary"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="mb-0">UI/UX Design Specialization</h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="d-grid mt-4">
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#careerModal3">
+                                    Explore This Path
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gap Analysis Section -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white py-3">
+                            <h4 class="mb-0 fw-bold">Skill Gap Analysis</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <p class="mb-4">Based on your current skills and the career paths you're interested in, here's where you might want to focus your learning:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="card border-0 bg-light h-100">
+                                        <div class="card-body p-4">
+                                            <h5 class="mb-3"><i class="fas fa-arrow-up text-success me-2"></i> Your Strengths</h5>
+                                            <ul class="list-unstyled">
+                                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> HTML/CSS - Continue building advanced layouts</li>
+                                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Python - Good foundation for backend development</li>
+                                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Communication - Essential for team collaboration</li>
+                                                <li><i class="fas fa-check-circle text-success me-2"></i> Problem Solving - Critical for technical roles</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="card border-0 bg-light h-100">
+                                        <div class="card-body p-4">
+                                            <h5 class="mb-3"><i class="fas fa-arrow-up text-warning me-2"></i> Improvement Areas</h5>
+                                            <ul class="list-unstyled">
+                                                <li class="mb-2"><i class="fas fa-exclamation-circle text-warning me-2"></i> React/Frontend Frameworks - Essential for modern web development</li>
+                                                <li class="mb-2"><i class="fas fa-exclamation-circle text-warning me-2"></i> SQL/Databases - Important for backend and data roles</li>
+                                                <li class="mb-2"><i class="fas fa-exclamation-circle text-warning me-2"></i> Version Control (Git) - Required for all technical roles</li>
+                                                <li><i class="fas fa-exclamation-circle text-warning me-2"></i> UI Design Fundamentals - Helpful for frontend development</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-primary d-flex align-items-center mt-2">
+                                <div class="me-3">
+                                    <i class="fas fa-lightbulb fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5 class="alert-heading mb-1">Next Steps</h5>
+                                    <p class="mb-0">Focus on building projects that incorporate your improvement areas. Consider taking the recommended courses for your top career paths to fill these skill gaps.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Career Path Modals -->
+    <!-- Full Stack Developer Modal -->
+    <div class="modal fade" id="careerModal1" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Full Stack Developer Career Path</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4 class="mb-3">About This Career</h4>
+                            <p>Develop both frontend and backend components of web applications. As a Full Stack Developer, you'll work on all aspects of application development, from user interfaces to server logic and databases.</p>
+                            
+                            <h4 class="mb-3 mt-4">What You'll Do</h4>
+                            <ul class="mb-4">
+                                <li>Build and maintain web applications from front to back end</li>
+                                <li>Collaborate with designers, product managers, and other engineers</li>
+                                <li>Write clean, efficient, and maintainable code</li>
+                                <li>Debug issues across the stack</li>
+                                <li>Stay updated with new technologies and best practices</li>
+                            </ul>
+                            
+                            <h4 class="mb-3">Career Path Timeline</h4>
+                            <div class="timeline">
+                                <div class="mb-3">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-graduation-cap"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5>Entry Level (0-2 years)</h5>
+                                            <p class="text-muted">Focus on building fundamental skills through internships and entry-level positions.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-briefcase"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5>Mid-Level (2-5 years)</h5>
+                                            <p class="text-muted">Take on more responsibility and specialize in specific areas of expertise.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5>Senior Level (5+ years)</h5>
+                                            <p class="text-muted">Lead projects, mentor junior team members, and influence strategic decisions.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-light border-0 mb-4">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Career Details</h5>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Average Salary</span>
+                                        <span class="fw-bold">₹6-15 LPA</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Growth Potential</span>
+                                        <span class="fw-bold">High</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Work-Life Balance</span>
+                                        <span class="fw-bold">Good</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Remote Work</span>
+                                        <span class="fw-bold">Available</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-light border-0">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Top Companies Hiring</h5>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <i class="fas fa-building text-primary me-2"></i> Microsoft, Google, Amazon
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-building text-primary me-2"></i> Infosys, TCS, Wipro
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-building text-primary me-2"></i> Startups and product companies
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Add to My Goals</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Scientist Modal -->
+    <div class="modal fade" id="careerModal2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Data Scientist Career Path</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4 class="mb-3">About This Career</h4>
+                            <p>Analyze and interpret complex data to help organizations make better decisions. As a Data Scientist, you'll extract insights from large datasets using statistical methods and machine learning techniques.</p>
+                            
+                            <h4 class="mb-3 mt-4">What You'll Do</h4>
+                            <ul class="mb-4">
+                                <li>Analyze large datasets to extract insights</li>
+                                <li>Build machine learning models to solve business problems</li>
+                                <li>Communicate findings to stakeholders</li>
+                                <li>Develop data visualization dashboards</li>
+                                <li>Stay updated with latest research and tools</li>
+                            </ul>
+                            
+                            <h4 class="mb-3">Career Path Timeline</h4>
+                            <div class="timeline">
+                                <div class="mb-3">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-graduation-cap"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5>Entry Level (0-2 years)</h5>
+                                            <p class="text-muted">Build statistical and programming foundations through junior data analyst roles.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-briefcase"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5>Mid-Level (2-5 years)</h5>
+                                            <p class="text-muted">Develop expertise in machine learning and industry-specific analytics.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5>Senior Level (5+ years)</h5>
+                                            <p class="text-muted">Lead data science teams and drive data strategy for organizations.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-light border-0 mb-4">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Career Details</h5>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Average Salary</span>
+                                        <span class="fw-bold">₹8-20 LPA</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Growth Potential</span>
+                                        <span class="fw-bold">High</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Work-Life Balance</span>
+                                        <span class="fw-bold">Good</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Remote Work</span>
+                                        <span class="fw-bold">Available</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-light border-0">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Top Companies Hiring</h5>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <i class="fas fa-building text-primary me-2"></i> Amazon, IBM, Accenture
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-building text-primary me-2"></i> TCS, Wipro, Microsoft
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-building text-primary me-2"></i> Fintech and healthcare startups
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Add to My Goals</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>SkillX</h5>
+                    <p class="text-muted">Empowering students with AI-driven career guidance.</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Features</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="skill_assessment.html" class="text-muted">Skill Assessment</a></li>
+                        <li><a href="career_paths.html" class="text-muted">Career Paths</a></li>
+                        <li><a href="job_trends.html" class="text-muted">Job Trends</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Tools</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="mock_interview.html" class="text-muted">Mock Interview</a></li>
+                        <li><a href="resume_review.html" class="text-muted">Resume Review</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Connect With Us</h5>
+                    <div class="d-flex">
+                        <a href="#" class="text-muted me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-muted me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-muted me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-muted"><i class="fab fa-github fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top border-secondary mt-4 pt-3 text-center text-muted">
+                <p>&copy; 2023 SkillX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // DOM Ready Event
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Bootstrap tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            
+            console.log('SkillX JavaScript initialized successfully!');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillX - Career Navigator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #858796;
+            --success-color: #1cc88a;
+            --info-color: #36b9cc;
+            --warning-color: #f6c23e;
+            --danger-color: #e74a3b;
+            --light-color: #f8f9fc;
+            --dark-color: #5a5c69;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fc;
+        }
+
+        /* Custom Card Styling */
+        .card {
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: none;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        }
+
+        /* Button Styling */
+        .btn {
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5fc9;
+            border-color: #3a5fc9;
+        }
+
+        /* Navbar Styling */
+        .navbar-dark.bg-primary {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            padding: 0.6rem 1rem !important;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #4e73df;
+            color: white;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="dashboard.html">
+                <i class="fas fa-chart-line me-2"></i>SkillX
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-success text-white px-3" href="register.html">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages - This would normally be populated by Flask -->
+    <div class="container mt-3" id="flash-messages">
+        <!-- Example flash message:
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Registration successful! Please login.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        -->
+    </div>
+
+    <!-- Main Content -->
+    <main class="py-4">
+        <!-- Hero Section -->
+        <section class="bg-primary text-white py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <h1 class="display-4 fw-bold mb-4">Navigate Your Career Path with AI</h1>
+                        <p class="lead mb-4">SkillX helps students from tier-2 and tier-3 colleges discover personalized career paths, gain in-demand skills, and prepare for job opportunities.</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="dashboard.html" class="btn btn-light btn-lg">Get Started Free</a>
+                            <a href="#how-it-works" class="btn btn-outline-light btn-lg">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <img src="../static/img/career.png" class="img-fluid" alt="Career Navigation">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="py-5" id="how-it-works">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-5 fw-bold">How SkillX Works</h2>
+                    <p class="lead text-muted">Our AI-powered platform helps you navigate your career journey in three simple steps</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center p-4">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px;">
+                                    <i class="fas fa-magnifying-glass fa-2x"></i>
+                                </div>
+                                <h3 class="h4 mb-3">Assess Your Skills</h3>
+                                <p class="text-muted">Take our comprehensive skill assessment to understand your strengths and areas for improvement.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center p-4">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px;">
+                                    <i class="fas fa-route fa-2x"></i>
+                                </div>
+                                <h3 class="h4 mb-3">Discover Career Paths</h3>
+                                <p class="text-muted">Get AI-powered recommendations for career paths based on your interests and current skills.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center p-4">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px;">
+                                    <i class="fas fa-rocket fa-2x"></i>
+                                </div>
+                                <h3 class="h4 mb-3">Upskill & Apply</h3>
+                                <p class="text-muted">Follow personalized learning paths and prepare for job applications with our tools.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-5 fw-bold">Features Designed for Students</h2>
+                    <p class="lead text-muted">Everything you need to succeed in your career journey</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 border-0">
+                            <div class="card-body">
+                                <div class="text-primary mb-3">
+                                    <i class="fas fa-map-marked-alt fa-2x"></i>
+                                </div>
+                                <h3 class="h5">Career Mapping</h3>
+                                <p class="text-muted small">Get personalized career paths based on your unique skills and interests.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 border-0">
+                            <div class="card-body">
+                                <div class="text-primary mb-3">
+                                    <i class="fas fa-laptop-code fa-2x"></i>
+                                </div>
+                                <h3 class="h5">Course Recommendations</h3>
+                                <p class="text-muted small">Discover the best online courses and certifications to build your skills.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 border-0">
+                            <div class="card-body">
+                                <div class="text-primary mb-3">
+                                    <i class="fas fa-chart-line fa-2x"></i>
+                                </div>
+                                <h3 class="h5">Job Market Trends</h3>
+                                <p class="text-muted small">Stay updated with real-time job market trends and requirements.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 border-0">
+                            <div class="card-body">
+                                <div class="text-primary mb-3">
+                                    <i class="fas fa-user-tie fa-2x"></i>
+                                </div>
+                                <h3 class="h5">Interview Preparation</h3>
+                                <p class="text-muted small">Practice with AI-powered mock interviews tailored to your target roles.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-5 bg-primary text-white">
+            <div class="container text-center">
+                <h2 class="display-6 fw-bold mb-4">Ready to Start Your Career Journey?</h2>
+                <p class="lead mb-4">Join thousands of students who are discovering their career paths with SkillX</p>
+                <a href="register.html" class="btn btn-light btn-lg px-5 py-3">Sign Up Now - It's Free</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>SkillX</h5>
+                    <p class="text-muted">Empowering students with AI-driven career guidance.</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Features</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="skill_assessment.html" class="text-muted">Skill Assessment</a></li>
+                        <li><a href="career_paths.html" class="text-muted">Career Paths</a></li>
+                        <li><a href="job_trends.html" class="text-muted">Job Trends</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Tools</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="mock_interview.html" class="text-muted">Mock Interview</a></li>
+                        <li><a href="resume_review.html" class="text-muted">Resume Review</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Connect With Us</h5>
+                    <div class="d-flex">
+                        <a href="#" class="text-muted me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-muted me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-muted me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-muted"><i class="fab fa-github fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top border-secondary mt-4 pt-3 text-center text-muted">
+                <p>&copy; 2023 SkillX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // DOM Ready Event
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Bootstrap tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            
+            console.log('SkillX JavaScript initialized successfully!');
+        });
+    </script>
+</body>
+</html>

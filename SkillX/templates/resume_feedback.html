@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Feedback | SkillX</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #858796;
+            --success-color: #1cc88a;
+            --info-color: #36b9cc;
+            --warning-color: #f6c23e;
+            --danger-color: #e74a3b;
+            --light-color: #f8f9fc;
+            --dark-color: #5a5c69;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fc;
+        }
+
+        /* Custom Card Styling */
+        .card {
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: none;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            border-top-left-radius: 0.5rem !important;
+            border-top-right-radius: 0.5rem !important;
+            background-color: white;
+            border-bottom: 1px solid #eaecf4;
+            font-weight: bold;
+            padding: 1rem 1.25rem;
+        }
+
+        /* Resume score gauge styles */
+        .score-gauge {
+            position: relative;
+            width: 150px;
+            height: 75px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .gauge-background, .gauge-fill {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+
+        .gauge-background {
+            background-color: #e9ecef;
+            clip-path: polygon(0 100%, 100% 100%, 100% 50%, 0 50%);
+            z-index: 1;
+        }
+
+        .gauge-fill {
+            background-color: var(--success-color);
+            clip-path: polygon(0 100%, 100% 100%, 100% 75%, 0 75%);
+            transform-origin: 50% 100%;
+            transform: rotate(0deg);
+            z-index: 2;
+        }
+
+        .gauge-center {
+            position: absolute;
+            width: 120px;
+            height: 60px;
+            background-color: white;
+            border-radius: 60px 60px 0 0;
+            bottom: 0;
+            left: 15px;
+            z-index: 3;
+        }
+
+        .gauge-value {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            z-index: 4;
+        }
+
+        /* Score cards */
+        .score-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .score-value {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* List styling */
+        .feedback-list li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        .feedback-list-strength li::before {
+            content: "✓";
+            color: var(--success-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .feedback-list-improvement li::before {
+            content: "!";
+            color: var(--warning-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        /* Button Styling */
+        .btn {
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5fc9;
+            border-color: #3a5fc9;
+        }
+
+        /* Navbar Styling */
+        .navbar-dark.bg-primary {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            padding: 0.6rem 1rem !important;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #4e73df;
+            color: white;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-chart-line me-2"></i>SkillX
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="skill_assessment.html">Skill Assessment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="career_paths.html">Career Paths</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="job_trends.html">Job Trends</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Tools
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="mock_interview.html">Mock Interview</a></li>
+                            <li><a class="dropdown-item" href="resume_review.html">Resume Review</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages - This would normally be populated by Flask -->
+    <div class="container mt-3" id="flash-messages">
+        <!-- Example flash message would go here -->
+    </div>
+
+    <!-- Main Content -->
+    <main class="py-4">
+        <div class="container py-4">
+            <!-- Header Section -->
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="fw-bold mb-3">Resume Analysis Results</h1>
+                    <p class="lead text-muted">AI-powered feedback to help your resume stand out</p>
+                </div>
+            </div>
+            
+            <!-- Overall Score Section -->
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4 text-center">
+                            <h4 class="fw-bold mb-4">Overall Resume Score</h4>
+                            
+                            <div class="score-gauge mb-3">
+                                <div class="gauge-background"></div>
+                                <div class="gauge-fill" id="scoreGauge"></div>
+                                <div class="gauge-center"></div>
+                                <div class="gauge-value">75%</div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h5 class="mb-3">Your resume is <span class="text-success">Good</span></h5>
+                                <p class="text-muted mb-0">Your resume is well-structured but has some areas for improvement to make it stand out to employers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Score Breakdown Section -->
+            <div class="row mb-5">
+                <div class="col-lg-10 mx-auto">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white py-3">
+                            <h4 class="mb-0 fw-bold">Score Breakdown</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-md-4 mb-4 mb-md-0">
+                                    <div class="score-card bg-light">
+                                        <h5 class="mb-3">Content</h5>
+                                        <div class="score-value text-primary">80%</div>
+                                        <p class="small text-muted mb-0">Job descriptions, achievements, and skills</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4 mb-md-0">
+                                    <div class="score-card bg-light">
+                                        <h5 class="mb-3">Format</h5>
+                                        <div class="score-value text-primary">70%</div>
+                                        <p class="small text-muted mb-0">Layout, organization, and readability</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="score-card bg-light">
+                                        <h5 class="mb-3">ATS Compatibility</h5>
+                                        <div class="score-value text-primary">75%</div>
+                                        <p class="small text-muted mb-0">Keyword optimization and parsing</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detailed Feedback Section -->
+            <div class="row mb-5">
+                <div class="col-lg-10 mx-auto">
+                    <div class="row">
+                        <!-- Strengths -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-header bg-white py-3">
+                                    <h4 class="mb-0 fw-bold text-success">
+                                        <i class="fas fa-check-circle me-2"></i>Strengths
+                                    </h4>
+                                </div>
+                                <div class="card-body p-4">
+                                    <ul class="feedback-list feedback-list-strength">
+                                        <li>Good use of action verbs in job descriptions</li>
+                                        <li>Clear presentation of technical skills</li>
+                                        <li>Appropriate length (1-2 pages)</li>
+                                        <li>Education section is well-structured</li>
+                                        <li>Contact information is complete and professional</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Areas for Improvement -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-header bg-white py-3">
+                                    <h4 class="mb-0 fw-bold text-warning">
+                                        <i class="fas fa-exclamation-circle me-2"></i>Areas for Improvement
+                                    </h4>
+                                </div>
+                                <div class="card-body p-4">
+                                    <ul class="feedback-list feedback-list-improvement">
+                                        <li>Add more quantifiable achievements to showcase your impact</li>
+                                        <li>Include more relevant keywords from job descriptions</li>
+                                        <li>Make your bullet points more concise (aim for 1-2 lines each)</li>
+                                        <li>Consider adding a professional summary/objective</li>
+                                        <li>Remove outdated or irrelevant experience</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ATS Analysis -->
+            <div class="row mb-5">
+                <div class="col-lg-10 mx-auto">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white py-3">
+                            <h4 class="mb-0 fw-bold">
+                                <i class="fas fa-robot me-2"></i>ATS Analysis
+                            </h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row align-items-center mb-4">
+                                <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+                                    <div class="d-inline-block px-4 py-2 bg-warning text-dark rounded-pill">
+                                        <span class="h5 mb-0">Medium Compatibility</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <p class="mb-0">Your resume has moderate ATS compatibility. With some improvements, it can be more effectively parsed by applicant tracking systems.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-6 mb-4">
+                                    <h5 class="mb-3">Detected Keywords</h5>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <span class="badge bg-primary p-2">Python</span>
+                                        <span class="badge bg-primary p-2">JavaScript</span>
+                                        <span class="badge bg-primary p-2">React</span>
+                                        <span class="badge bg-primary p-2">HTML/CSS</span>
+                                        <span class="badge bg-primary p-2">SQL</span>
+                                        <span class="badge bg-primary p-2">Git</span>
+                                        <span class="badge bg-primary p-2">REST API</span>
+                                        <span class="badge bg-primary p-2">Team leadership</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="mb-3">Suggested Keywords</h5>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <span class="badge bg-secondary p-2">Node.js</span>
+                                        <span class="badge bg-secondary p-2">AWS</span>
+                                        <span class="badge bg-secondary p-2">Docker</span>
+                                        <span class="badge bg-secondary p-2">CI/CD</span>
+                                        <span class="badge bg-secondary p-2">Agile</span>
+                                        <span class="badge bg-secondary p-2">TypeScript</span>
+                                        <span class="badge bg-secondary p-2">MongoDB</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Next Steps -->
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white py-3">
+                            <h4 class="mb-0 fw-bold">Next Steps</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <p class="mb-4">Based on our analysis, here are the recommended next steps to improve your resume:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <span>1</span>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5>Revise Your Content</h5>
+                                            <p class="text-muted mb-0">Add quantifiable achievements and incorporate suggested keywords relevant to your target roles.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <span>2</span>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5>Improve Formatting</h5>
+                                            <p class="text-muted mb-0">Ensure consistent formatting throughout and optimize the layout for better readability.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <span>3</span>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5>Customize for Target Jobs</h5>
+                                            <p class="text-muted mb-0">Tailor your resume for specific job descriptions by highlighting relevant skills and experience.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <span>4</span>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5>Practice for Interviews</h5>
+                                            <p class="text-muted mb-0">Use our <a href="mock_interview.html">Mock Interview</a> tool to prepare for questions about your resume.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-4">
+                                <a href="resume_review.html" class="btn btn-primary me-2">
+                                    <i class="fas fa-upload me-2"></i>Upload Revised Resume
+                                </a>
+                                <a href="dashboard.html" class="btn btn-outline-primary">
+                                    Back to Dashboard
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>SkillX</h5>
+                    <p class="text-muted">Empowering students with AI-driven career guidance.</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Features</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="skill_assessment.html" class="text-muted">Skill Assessment</a></li>
+                        <li><a href="career_paths.html" class="text-muted">Career Paths</a></li>
+                        <li><a href="job_trends.html" class="text-muted">Job Trends</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Tools</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="mock_interview.html" class="text-muted">Mock Interview</a></li>
+                        <li><a href="resume_review.html" class="text-muted">Resume Review</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Connect With Us</h5>
+                    <div class="d-flex">
+                        <a href="#" class="text-muted me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-muted me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-muted me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-muted"><i class="fab fa-github fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top border-secondary mt-4 pt-3 text-center text-muted">
+                <p>&copy; 2023 SkillX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Set the score gauge rotation
+        document.addEventListener('DOMContentLoaded', function() {
+            const score = 75; // This would be dynamic in a real app
+            const scoreGauge = document.getElementById('scoreGauge');
+            const degrees = (score / 100) * 180;
+            
+            scoreGauge.style.transform = `rotate(${degrees}deg)`;
+            
+            // Determine gauge color based on score
+            if (score >= 80) {
+                scoreGauge.style.backgroundColor = 'var(--success-color)';
+            } else if (score >= 60) {
+                scoreGauge.style.backgroundColor = 'var(--warning-color)';
+            } else {
+                scoreGauge.style.backgroundColor = 'var(--danger-color)';
+            }
+            
+            // Initialize tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+</body>
+</html>
